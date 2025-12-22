@@ -1,5 +1,5 @@
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, NoTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -7,9 +7,8 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.graphics import Rectangle
 
-# Set window size
+# Fullscreen mode for 320x480 screen
 Window.fullscreen = True
-# Window.size = (320, 480)
 
 # --- Home Screen ---
 class HomeScreen(Screen):
@@ -17,10 +16,10 @@ class HomeScreen(Screen):
         super().__init__(**kwargs)
         layout = FloatLayout()
 
-        # Draw background
+        # Background scaled to screen
         with layout.canvas.before:
-            self.bg_rect = Rectangle(source="assets/homeScreen.png", pos=layout.pos, size=layout.size)
-        layout.bind(pos=self.update_bg, size=self.update_bg)
+            self.bg_rect = Rectangle(source="assets/homeScreen.png", pos=(0, 0), size=Window.size)
+        layout.bind(size=self.update_bg, pos=self.update_bg)
 
         # --- Time and date labels ---
         self.time_label = Label(
@@ -28,18 +27,18 @@ class HomeScreen(Screen):
             font_size=30,
             color=(1, 1, 1, 1),
             size_hint=(None, None),
-            size=(200, 50),
-            pos=(50, 520)
+            size=(100, 30),
+            pos=(10, 420)
         )
         layout.add_widget(self.time_label)
 
         self.date_label = Label(
             text="Sep 22, 2025",
-            font_size=30,
+            font_size=20,
             color=(1, 1, 1, 1),
             size_hint=(None, None),
-            size=(200, 50),
-            pos=(50, 570)
+            size=(150, 30),
+            pos=(10, 450)
         )
         layout.add_widget(self.date_label)
 
@@ -47,8 +46,8 @@ class HomeScreen(Screen):
         self.call_btn = Button(
             text="Call",
             size_hint=(None, None),
-            size=(200, 40),
-            pos=(50, 50)
+            size=(120, 40),
+            pos=(10, 50)
         )
         self.call_btn.bind(on_press=self.go_to_call_screen)
         layout.add_widget(self.call_btn)
@@ -57,8 +56,8 @@ class HomeScreen(Screen):
         self.text_btn = Button(
             text="Text",
             size_hint=(None, None),
-            size=(200, 40),
-            pos=(50, 100)
+            size=(120, 40),
+            pos=(10, 100)
         )
         self.text_btn.bind(on_press=self.go_to_text_screen)
         layout.add_widget(self.text_btn)
@@ -66,29 +65,29 @@ class HomeScreen(Screen):
         self.add_widget(layout)
 
     def update_bg(self, *args):
-        self.bg_rect.pos = self.pos
-        self.bg_rect.size = self.size
+        self.bg_rect.size = Window.size
+        self.bg_rect.pos = (0, 0)
 
     def go_to_call_screen(self, instance):
         self.manager.current = "call_screen"
-    
+
     def go_to_text_screen(self, instance):
         self.manager.current = "text_screen"
 
 
-# Dial up screen
+# --- Call Screen ---
 class CallScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        layout = GridLayout(cols=3, padding=10, spacing=10)
+        layout = GridLayout(cols=3, padding=5, spacing=5, size_hint=(1, 1))
 
-        # Example buttons for phone numbers
+        # Buttons for numbers 1-9
         for i in range(1, 10):
             btn = Button(text=str(i))
             btn.bind(on_press=self.on_call_button)
             layout.add_widget(btn)
 
-        # Add a "Back" button
+        # Back button
         back_btn = Button(text="Back")
         back_btn.bind(on_press=self.go_back_home)
         layout.add_widget(back_btn)
@@ -102,17 +101,22 @@ class CallScreen(Screen):
         self.manager.current = "home_screen"
 
 
-# Text Screen
+# --- Text Screen ---
 class TextScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         layout = FloatLayout()
-        # layout = GridLayout(cols=3, padding=10, spacing=10)
 
-        # Add a "Back" button
-        back_btn = Button(text="Back")
+        # Back button
+        back_btn = Button(
+            text="Back",
+            size_hint=(None, None),
+            size=(120, 40),
+            pos=(10, 50)
+        )
         back_btn.bind(on_press=self.go_back_home)
         layout.add_widget(back_btn)
+
         self.add_widget(layout)
 
     def go_back_home(self, instance):
