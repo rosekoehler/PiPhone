@@ -8,7 +8,8 @@ from kivy.core.window import Window
 from kivy.graphics import Rectangle
 
 # Set window size
-Window.size = (320, 480)
+Window.fullscreen = True
+# Window.size = (320, 480)
 
 # --- Home Screen ---
 class HomeScreen(Screen):
