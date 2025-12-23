@@ -122,7 +122,11 @@ class CallScreen(Screen):
         self.add_widget(layout)
     
     def on_call_button(self, instance):
-        print(f"Calling {instance.text}...")
+        button_text = instance.text  # Gets "1", "2", "3", etc.
+        print(f"{button_text}")
+    
+        # Turning button green when clicked
+        instance.background_color = (0, 1, 0, 1) 
     
     def go_back_home(self, instance):
         self.manager.current = "home_screen"
