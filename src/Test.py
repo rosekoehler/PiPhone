@@ -1,13 +1,23 @@
-import tkinter as tk
+from kivy.app import App
+from kivy.uix.button import Button
+from kivy.core.window import Window
 
-# creates main window
-screen = tk.Tk()
-screen.title("My App")           # Set window title
-screen.attributes("-fullscreen", True)
-# makes button
-# lamda is a quick way to write a small function
-# pack() puts it on the screen 
-tk.Button(screen, text="Click Me", command=lambda: print("Clicked!")).pack()
+class MyApp(App):
+    def build(self):
+        # make window fullscreen
+        Window.fullscreen = True
+
+        # create button
+        button = Button(
+            text="Click Me",
+            font_size=32
+        )
+
+        # bind button press to function
+        button.bind(on_press=lambda instance: print("Clicked!"))
+
+        return button
 
 
-screen.mainloop()
+if __name__ == "__main__":
+    MyApp().run()
