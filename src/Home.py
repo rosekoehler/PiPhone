@@ -93,8 +93,6 @@ class HomeScreen(Screen):
         self.add_widget(layout)
     
     def update_bg(self, *args):
-        self.bg_color.size = Window.size
-        self.bg_color.pos = (0, 0)
         if self.bg_rect:
             self.bg_rect.size = Window.size
             self.bg_rect.pos = (0, 0)
