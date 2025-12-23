@@ -29,7 +29,6 @@ class HomeScreen(Screen):
         
         # Background
         with layout.canvas.before:
-            
             # Use absolute path to the image
             image_path = os.path.join(ASSETS_DIR, "homeScreen.png")
             
