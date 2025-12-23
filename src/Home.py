@@ -13,10 +13,12 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # Go up one level to PiPhone directory, then into assets
 ASSETS_DIR = os.path.join(SCRIPT_DIR, "..", "assets")
 
-# Set the window size and orientation
-Window.size = (320, 480)  # Width x Height (portrait orientation)
+# Touch screen specific
+Window.size = (320, 480) 
 
-# Fullscreen mode
+# Rotate the display 90 degrees (potrait)
+Window.rotation = 90
+
 Window.fullscreen = True
 
 # --- Home Screen ---
@@ -27,9 +29,6 @@ class HomeScreen(Screen):
         
         # Background
         with layout.canvas.before:
-            # Add a color background as fallback
-            Color(0.2, 0.2, 0.2, 1)  # Dark gray background
-            self.bg_color = Rectangle(pos=(0, 0), size=Window.size)
             
             # Use absolute path to the image
             image_path = os.path.join(ASSETS_DIR, "homeScreen.png")
