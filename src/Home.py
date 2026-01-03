@@ -85,7 +85,7 @@ class HomeScreen(Screen):
             text="Text",
             size_hint=(None, None),
             size=(130, 50),
-            pos=(10, 80)
+            pos=(10, 100)
         )
         self.text_btn.bind(on_press=self.go_to_text_screen)
         layout.add_widget(self.text_btn)
