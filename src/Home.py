@@ -109,40 +109,41 @@ class HomeScreen(Screen):
 class CallScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.current_number = ""
+
         layout = GridLayout(cols=3, padding=5, spacing=5)
-        
-        # Buttons 1-9
+
         for i in range(1, 10):
             btn = Button(text=str(i))
             btn.bind(on_press=self.on_number)
             layout.add_widget(btn)
 
-        # Back button
         back_btn = Button(text="Back")
         back_btn.bind(on_press=self.go_back_home)
         layout.add_widget(back_btn)
 
-        # Call button
         call_btn = Button(text="Call")
         call_btn.bind(on_press=self.on_call)
         layout.add_widget(call_btn)
 
-
-
-        
         self.add_widget(layout)
-    
-    def on_number(self, instance):
-        button_text = instance.text  # Gets "1", "2", "3", etc.
-        print(f"{button_text}")
-    
-    def on_call(self,instance,number):
-        if (number==10):
-            print("calling...")
 
+    def on_number(self, instance):
+        self.current_number += instance.text
+        print("Current number:", self.current_number)
+
+    def on_call(self, instance):
+        if len(self.current_number) == 10:
+            print(f"Calling {self.current_number}...")
+        else:
+            print("Invalid number:", self.current_number)
+
+    def on_enter(self):
+        self.current_number = ""
 
     def go_back_home(self, instance):
         self.manager.current = "home_screen"
+
 
 # --- Text Screen ---
 class TextScreen(Screen):
