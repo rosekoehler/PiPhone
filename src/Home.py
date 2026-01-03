@@ -74,7 +74,7 @@ class HomeScreen(Screen):
         self.call_btn = Button(
             text="Call",
             size_hint=(None, None),
-            size=(150, 70),
+            size=(130, 50),
             pos=(10, 40)
         )
         self.call_btn.bind(on_press=self.go_to_call_screen)
@@ -84,7 +84,7 @@ class HomeScreen(Screen):
         self.text_btn = Button(
             text="Text",
             size_hint=(None, None),
-            size=(150, 70),
+            size=(130, 50),
             pos=(10, 80)
         )
         self.text_btn.bind(on_press=self.go_to_text_screen)
@@ -126,17 +126,7 @@ class CallScreen(Screen):
         button_text = instance.text  # Gets "1", "2", "3", etc.
         print(f"{button_text}")
     
-        # Tint the default button blue when clicked
-        instance.background_color = (0.3, 0.3, 1, 1)
-        Clock.schedule_once(
-            lambda dt: self.reset_color(instance),
-            0.15
-        )
-    
-    def reset_color(self, button):
-        button.background_color = (1, 1, 1, 1)
 
-    
     def go_back_home(self, instance):
         self.manager.current = "home_screen"
 
