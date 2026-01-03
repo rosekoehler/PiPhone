@@ -75,7 +75,7 @@ class HomeScreen(Screen):
             text="Call",
             size_hint=(None, None),
             size=(150, 70),
-            pos=(10, 20)
+            pos=(10, 40)
         )
         self.call_btn.bind(on_press=self.go_to_call_screen)
         layout.add_widget(self.call_btn)
@@ -85,7 +85,7 @@ class HomeScreen(Screen):
             text="Text",
             size_hint=(None, None),
             size=(150, 70),
-            pos=(10, 70)
+            pos=(10, 80)
         )
         self.text_btn.bind(on_press=self.go_to_text_screen)
         layout.add_widget(self.text_btn)
@@ -132,6 +132,9 @@ class CallScreen(Screen):
             lambda dt: self.reset_color(instance),
             0.15
         )
+    
+    def reset_color(self, button):
+        button.background_color = (1, 1, 1, 1)
 
     
     def go_back_home(self, instance):
