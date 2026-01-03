@@ -7,6 +7,7 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.graphics import Rectangle, Color
 import os
+from kivy.clock import Clock
 
 # Get the directory where this script is located
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -73,8 +74,8 @@ class HomeScreen(Screen):
         self.call_btn = Button(
             text="Call",
             size_hint=(None, None),
-            size=(120, 40),
-            pos=(10, 50)
+            size=(150, 70),
+            pos=(10, 20)
         )
         self.call_btn.bind(on_press=self.go_to_call_screen)
         layout.add_widget(self.call_btn)
@@ -83,8 +84,8 @@ class HomeScreen(Screen):
         self.text_btn = Button(
             text="Text",
             size_hint=(None, None),
-            size=(120, 40),
-            pos=(10, 100)
+            size=(150, 70),
+            pos=(10, 70)
         )
         self.text_btn.bind(on_press=self.go_to_text_screen)
         layout.add_widget(self.text_btn)
@@ -125,8 +126,9 @@ class CallScreen(Screen):
         button_text = instance.text  # Gets "1", "2", "3", etc.
         print(f"{button_text}")
     
-        # Turning button green when clicked
+         # Flashes green when clicked
         instance.background_color = (0, 1, 0, 1) 
+        Clock.schedule_once(lambda dt: self.reset_color(self), 0.15)
     
     def go_back_home(self, instance):
         self.manager.current = "home_screen"
