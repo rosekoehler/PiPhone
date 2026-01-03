@@ -126,9 +126,13 @@ class CallScreen(Screen):
         button_text = instance.text  # Gets "1", "2", "3", etc.
         print(f"{button_text}")
     
-         # Flashes green when clicked
-        instance.background_color = (0, 1, 0, 1) 
-        Clock.schedule_once(lambda dt: self.reset_color(self), 0.15)
+        # Tint the default button blue when clicked
+        instance.background_color = (0.3, 0.3, 1, 1)
+        Clock.schedule_once(
+            lambda dt: self.reset_color(instance),
+            0.15
+        )
+
     
     def go_back_home(self, instance):
         self.manager.current = "home_screen"
