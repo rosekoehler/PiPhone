@@ -87,6 +87,8 @@ class HomeScreen(Screen):
             size=(130, 50),
             pos=(10, 100)
         )
+
+
         self.text_btn.bind(on_press=self.go_to_text_screen)
         layout.add_widget(self.text_btn)
         
@@ -112,20 +114,32 @@ class CallScreen(Screen):
         # Buttons 1-9
         for i in range(1, 10):
             btn = Button(text=str(i))
-            btn.bind(on_press=self.on_call_button)
+            btn.bind(on_press=self.on_number)
             layout.add_widget(btn)
-        
+
         # Back button
         back_btn = Button(text="Back")
         back_btn.bind(on_press=self.go_back_home)
         layout.add_widget(back_btn)
+
+        # Call button
+        call_btn = Button(text="Call")
+        call_btn.bind(on_press=self.on_call)
+        layout.add_widget(call_btn)
+
+
+
         
         self.add_widget(layout)
     
-    def on_call_button(self, instance):
+    def on_number(self, instance):
         button_text = instance.text  # Gets "1", "2", "3", etc.
         print(f"{button_text}")
     
+    def on_call(self,instance,number):
+        if (number==10):
+            print("calling...")
+
 
     def go_back_home(self, instance):
         self.manager.current = "home_screen"
